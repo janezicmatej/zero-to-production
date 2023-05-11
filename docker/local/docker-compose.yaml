@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  # postgresdb:
+  #   container_name: ${COMPOSE_PROJECT_NAME}_db
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_DB: ${DB_NAME}
+  #     POSTGRES_USER: ${DB_USER}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #   ports:
+  #     - "127.0.0.1:${DB_PROXY_PORT}:5432"
+    # uncomment to persist db data between downs
+    # volumes:
+    #  - ./db-data/:/var/lib/postgresql/data
+    # uncomment for query logging
+    # command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
+
+  appserver:
+    container_name: ${COMPOSE_PROJECT_NAME}_server
+    # uncomment if not using docker desktop
+    # user: ${USER_UID}:${USER_GID}
+    build:
+      context: ../../
+      dockerfile: docker/local/Dockerfile
+    # environment:
+    #   DB_PORT: 5432
+    #   DB_HOST: ${COMPOSE_PROJECT_NAME}_db
+    env_file:
+      - ../../.env
+    # ports:
+    #   - "127.0.0.1:${SERVER_PROXY_PORT}:8000"
+    # depends_on:
+    #   - postgresdb
+    volumes:
+      - ../../:/app
+
