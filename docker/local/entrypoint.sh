@@ -5,4 +5,4 @@
 # 	sleep 1
 # done
 
-exec cargo watch -w ./src -x check -x test -x run 
+exec cargo watch -w ./src -w Cargo.toml -x check -x test -x run 
