@@ -1,17 +1,9 @@
-use actix_web::{web, App, HttpRequest, HttpServer, Responder};
+use std::net::TcpListener;
 
-const VERSION: &str = env!("CARGO_PKG_VERSION");
-
-async fn version(_: HttpRequest) -> impl Responder {
-    VERSION
-}
+use ztp::run;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    println!("Starting server at http://0.0.0.0:8000");
-
-    HttpServer::new(|| App::new().route("/_version", web::get().to(version)))
-        .bind("0.0.0.0:8000")?
-        .run()
-        .await
+    let listener = TcpListener::bind("0.0.0.0:8000")?;
+    run(listener)?.await
 }
