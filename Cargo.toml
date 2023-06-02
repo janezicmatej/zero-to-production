@@ -15,6 +15,7 @@ actix-web = "4.3.1"
 anyhow = "1.0.70"
 dotenvy = "0.15.7"
 lazy_static = "1.4.0"
+serde = {version = "1.0.163", features = ["derive"]}
 tokio = { version = "1.28.1", features = ["macros", "rt-multi-thread"] }
 
 [dev-dependencies]
