@@ -6,9 +6,12 @@ RUN apt-get clean && apt-get update && \
            postgresql-client \
            netcat-traditional
 
+# install deps outside of mounted directory
 ENV CARGO_TARGET_DIR=/target
+# use crates.io for registry
 ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 
+# install necessary cli tools
 RUN cargo install cargo-watch
 RUN cargo install sqlx-cli --no-default-features --features native-tls,postgres
 
